@@ -1,0 +1,2701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.2 r1790748">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath">E:\Jemeter_Project\CiphertextOpt.jar</stringProp>
+    </TestPlan>
+    <hashTree>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP请求默认值" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">cas-uat.zhph.lan/cas</stringProp>
+        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="线程组" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1525920255000</longProp>
+        <longProp name="ThreadGroup.end_time">1525920255000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="登录认证接口" enabled="true"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;v1/cas/query/queryCert&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口全部参数正确" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口itemID为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口userName为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casEmpNo为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casEmpNo输入不存在账户名" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuonna\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casEmpNo长度超1000字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuoavnjvnksvnskldvnjsdfhsdgfhfujhwefsobjfvsjgbdhgsvdfhabjfalfjsjabfjkabsdbghsdbgsbnfgajfoqnelejkgnjgnjksnaljga...\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casEmpNo输入特殊字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;%$@#&amp;……\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casPass为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casPass输入错误密码" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph123456\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casPass长度超1000字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;zhph1234bdvjsdbvjbdkvbjsvbajkab234hh5gb8djsbkvjsbdkjabk2j34b5h34bugsg8s7jvbabgjbfk2jb52bj3b5k2jb5j23b5jb2n2hbb1hb4...\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录认证接口casPass输入特殊字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;%$@#&amp;……\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1000&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="修改密码接口" enabled="true"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;v1/cas/update/updateCert&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="修改密码接口isAdmin为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口参数全部正确" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口casEmpNo为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口casEmpNo不存在" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuojdgs\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口casEmpNo长度超1000字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuoajfhjahfjbfhagbfajfhjsdkhgjdakgdhgfhavfgvafbjkabfjbehfgaeygrfyegtirugthjebfhabfhavbsfvahbgjkabdjabsfvafh...\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口oldCasPass为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口oldCasPass错误" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph123456\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口长度超1000字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234afghdgfhsgywg43yug542iuy57823tg2g3gr5jh4g528457y8325g32gb5h2b35uy3g2857t328753g5h2gbhj23b5jhv23h55h...\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=0,修改密码接口casPass为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;0\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口参数全部正确" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口casEmpNo为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口casEmpNo不存在" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuogsjn\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口casEmpNo长度超1000字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuozjhfjsdbgsjngsdgljnsgjkrghrhguegonfgjewbgjwbgjagnlsdjgnjsdbgjbsdgjnajfjaklsnfklanfejnfjufnejbgrbghbrgjebg...\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口oldCasPass为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口oldCasPass错误" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph123456\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口oldCasPass长度超1000字符" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234346135434h35gh3g542h5895y98hftwkjefhkejhf4275y4736t4gh2g3kj5h43jt574837yt8hfiuwhfuiwhefjbhwjhgjshhf...\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;123456\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="isAdmin=1,修改密码接口casPass为空" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${data}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装加密参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.CiphertextOpt;
+
+System.out.println(&quot;==============================================================&quot;);
+String data =&quot;{\&quot;itemID\&quot;: \&quot;18de655f-04f8-461d-a076-a1fa65518424\&quot;,&quot; +
+                &quot;\&quot;userName\&quot;: \&quot;dz_zhph_cas\&quot;,&quot; +
+                &quot;\&quot;param\&quot;: {&quot; +
+                &quot;\&quot;oldCasPass\&quot;: \&quot;zhph1234\&quot;,&quot; +
+                &quot;\&quot;casEmpNo\&quot;: \&quot;juzuo\&quot;,&quot; +
+                &quot;\&quot;casPass\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;isAdmin\&quot;:\&quot;1\&quot;&quot; +
+                &quot;}}&quot;;
+String a = null;
+System.out.println(&quot;-------------------加密前的请求值-----------------------&quot;);
+//System.out.println(data);
+
+//加密
+try {
+        a = CiphertextOpt.ciphertextEn(data);
+} catch (Exception e) {
+        e.printStackTrace();
+}
+System.out.println(&quot;-------------------加密后的请求值-----------------------&quot;);
+System.out.println(a);
+vars.put(&quot;data&quot;,a);</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.CiphertextOpt;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//System.out.println(&quot;----------------------返回值-------------------------&quot;);
+//System.out.println(res);
+
+try{
+//	//请求数据解密
+//	String data = CiphertextOpt.ciphertextDec(res);
+//	System.out.println(&quot;-------------------解密后的返回值--------------------&quot;);
+//	System.out.println(data);
+
+     JSONObject jstr = JSONObject.fromObject(res);
+     String code = jstr.get(&quot;errorCode&quot;); //获取code
+	String checkCode = &quot;1001&quot;; //断言的code
+	if(code.equals(checkCode)){
+		Failure = false;
+		FailureMessage = &quot;成功&quot;;	
+	}else{
+		Failure = true;
+		FailureMessage  = &quot;返回code值错误；返回errorCode值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+	}
+     
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=============================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>true</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>true</responseData>
+              <samplerData>true</samplerData>
+              <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>true</responseHeaders>
+              <requestHeaders>true</requestHeaders>
+              <responseDataOnError>true</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <fileName>true</fileName>
+              <hostname>true</hostname>
+              <threadCounts>true</threadCounts>
+              <sampleCount>true</sampleCount>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="工作台" enabled="true">
+      <boolProp name="WorkBench.save">true</boolProp>
+    </WorkBench>
+    <hashTree/>
+  </hashTree>
+</jmeterTestPlan>

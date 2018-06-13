@@ -1,0 +1,1469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.2 r1790748">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/json</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP请求默认值（Web端）" enabled="false">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">consumptionsale-uat.zhph.lan/api/medWebService?wsdl</stringProp>
+        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.protocol"></stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP请求默认值（App端）" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">zhfqapp.zhph.lan/ZHFQWebService</stringProp>
+        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.protocol"></stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection Configuration" enabled="true">
+        <boolProp name="autocommit">true</boolProp>
+        <stringProp name="checkQuery">Select 1 from dual</stringProp>
+        <stringProp name="connectionAge">5000</stringProp>
+        <stringProp name="dataSource">xjtemp</stringProp>
+        <stringProp name="dbUrl">jdbc:oracle:thin:@192.168.7.202:1521:xjtemp</stringProp>
+        <stringProp name="driver">oracle.jdbc.driver.OracleDriver</stringProp>
+        <boolProp name="keepAlive">true</boolProp>
+        <stringProp name="password">SALE</stringProp>
+        <stringProp name="poolMax">10</stringProp>
+        <stringProp name="timeout">10000</stringProp>
+        <stringProp name="transactionIsolation">DEFAULT</stringProp>
+        <stringProp name="trimInterval">60000</stringProp>
+        <stringProp name="username">SALEUSER</stringProp>
+      </JDBCDataSource>
+      <hashTree/>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="随机生成的身份证和贷款编号" enabled="true">
+        <stringProp name="delimiter">,</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="filename">fake.csv</stringProp>
+        <boolProp name="ignoreFirstLine">false</boolProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="variableNames">userName,acctNo,cardNo,address,phoneNo,loanId</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="随机文件地址" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="fileAdress" elementType="Argument">
+            <stringProp name="Argument.name">fileAdress</stringProp>
+            <stringProp name="Argument.value">python E:/Jemeter_Project/YiLiaoDai_XJ/Fake_Factory.py</stringProp>
+            <stringProp name="Argument.desc">随机参数的脚本地址（要安装Faker包）</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="线程组" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1528098382000</longProp>
+        <longProp name="ThreadGroup.end_time">1528098382000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询贷款合同编号" enabled="false">
+          <stringProp name="dataSource">xjtemp</stringProp>
+          <stringProp name="query">select* from (select r.BUSI_NO from ZHPH_R_FLOW_INFO r
+left join ZHPH_LOAN_BASE_INFO t ON t.LOAN_NO = r.BUSI_NO
+where t.APROV_RESULT in (&apos;136&apos;,&apos;142&apos;,&apos;145&apos;,&apos;152&apos;) 
+GROUP BY r.BUSI_NO HAVING COUNT(1) = 1) where rownum=1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">objId</stringProp>
+        </JDBCSampler>
+        <hashTree/>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="试算接口（medStagesTrial）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;medStagesTrial&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="试算接口" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+                &quot;\&quot;message\&quot;: \&quot;一定成功啊！！\&quot;,&quot; +
+                &quot;\&quot;itemID\&quot;: \&quot;d74f8d29-0bb3-498b-a342-1bc0d4f7a6b9\&quot;,&quot; +
+                &quot;\&quot;data\&quot;: {&quot; +
+                &quot;\&quot;custRiskLev\&quot;: \&quot;A\&quot;,&quot; +
+                &quot;\&quot;goodsType\&quot;: \&quot;025\&quot;,&quot; +
+                &quot;\&quot;isAttach\&quot;: \&quot;2\&quot;,&quot; +
+                &quot;\&quot;isInsuuance\&quot;: \&quot;1\&quot;,&quot; +
+                &quot;\&quot;loanAmt\&quot;: \&quot;6000\&quot;,&quot; +
+                &quot;\&quot;loanNum\&quot;: \&quot;12\&quot;,&quot; +
+                &quot;\&quot;proId\&quot;: \&quot;15280977334272816\&quot;,&quot; +
+                &quot;\&quot;strId\&quot;: \&quot;640501004001\&quot;&quot; +
+                &quot;},&quot; +
+                &quot;\&quot;code\&quot;: \&quot;200\&quot;&quot; +
+                &quot;}&quot;;
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+vars.put(&quot;strJson&quot;,str);
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="签约接口（medProductSigned）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;medProductSigned&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="签约接口" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+                &quot;\&quot;message\&quot;: \&quot;一定成功啊！！\&quot;,&quot; +
+                &quot;\&quot;itemID\&quot;: \&quot;d74f8d29-0bb3-498b-a342-1bc0d4f7a6b9\&quot;,&quot; +
+                &quot;\&quot;data\&quot;: [{&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;37\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;102\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;张杰1\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;829f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;829f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;22\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;729f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;729f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;28\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋2\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;629f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;629f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;27\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋3\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;529f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;529f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;24\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;429f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;429f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;21\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;26\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;2f29f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;2f29f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;8\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;31\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot;yuzhiboban\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;1f29f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;1f29f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.pdf\&quot;&quot; +
+                &quot;}],&quot; +
+                &quot;\&quot;code\&quot;: \&quot;200\&quot;&quot; +
+                &quot;}&quot;;
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+//System.out.println(&quot;-----------------------------加密后的-------------------------------&quot;);
+//System.out.println(str);
+vars.put(&quot;strJson&quot;,str);
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="附件接口（medMemoryAdjunct）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;medMemoryAdjunct&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="附件接口" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+                &quot;\&quot;message\&quot;: \&quot;一定成功啊！！\&quot;,&quot; +
+                &quot;\&quot;itemID\&quot;: \&quot;d74f8d29-0bb3-498b-a342-1bc0d4f7a6b9\&quot;,&quot; +
+                &quot;\&quot;data\&quot;: [{&quot; +
+                &quot;\&quot;libName\&quot;: \&quot; tupian1\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;10\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian1\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;102\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;张杰1\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;829f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;829f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;. jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot; tupian2\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;12\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian2\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;729f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;729f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;. jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot; tupian3\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;13\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian3\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋2\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;629f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;629f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;. jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot; tupian4\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;54\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian4\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋3\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;529f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;529f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;. jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot; tupian5\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;55\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian5\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;429f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;429f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;. jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;tupian6\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;58\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian6\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;tupian7\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;59\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian7\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.jpg\&quot;&quot; +
+                &quot;}, {&quot; +
+                &quot;\&quot;libName\&quot;: \&quot;tupian8\&quot;,&quot; +
+                &quot;\&quot;objType\&quot;: \&quot;4\&quot;,&quot; +
+                &quot;\&quot;libType\&quot;: \&quot;41\&quot;,&quot; +
+                &quot;\&quot;libTitle\&quot;: \&quot; tupian8\&quot;,&quot; +
+                &quot;\&quot;objId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;libSize\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;libCreateUserName\&quot;: \&quot;付洋洋\&quot;,&quot; +
+                &quot;\&quot;libCreateUserId\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libDirectory\&quot;: \&quot;/uploads/2017-08-02/\&quot;,&quot; +
+                &quot;\&quot;libCreateUserNo\&quot;: \&quot;329f941602340b5bedb88af501eeab9\&quot;,&quot; +
+                &quot;\&quot;libExtName\&quot;: \&quot;.jpg\&quot;&quot; +
+                &quot;}],&quot; +
+                &quot;\&quot;code\&quot;: \&quot;200\&quot;&quot; +
+                &quot;}&quot;;
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+vars.put(&quot;strJson&quot;,str);
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="持久化通话记录（medMemoryPhoneCallThem）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;medMemoryPhoneCallThem&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="持久化通话记录" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+                &quot;\&quot;message\&quot;: \&quot;一定成功啊！！\&quot;,&quot; +
+                &quot;\&quot;itemID\&quot;: \&quot;d74f8d29-0bb3-498b-a342-1bc0d4f7a6b9\&quot;,&quot; +
+                &quot;\&quot;data\&quot;: [{&quot; +
+                &quot;\&quot;callDate\&quot;: \&quot;2013-11-11 11:11:11\&quot;,&quot; +
+                &quot;\&quot;callLong\&quot;: 2300,&quot; +
+                &quot;\&quot;id\&quot;: \&quot;4456c4a54a2045638a8ebcc374ef11f5\&quot;,&quot; +
+                &quot;\&quot;insertTime\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;insertUser\&quot;: \&quot;zhangsan\&quot;,&quot; +
+                &quot;\&quot;jsons\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;loanId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;loanNo\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;name\&quot;: \&quot;wangwu\&quot;,&quot; +
+                &quot;\&quot;phoneNo\&quot;: \&quot;110\&quot;,&quot; +
+                &quot;\&quot;type\&quot;: \&quot;3\&quot;&quot; +
+                &quot;},&quot; +
+                &quot;{&quot; +
+                &quot;\&quot;callDate\&quot;: \&quot;2013-12-12 12:12:12\&quot;,&quot; +
+                &quot;\&quot;callLong\&quot;: 2300,&quot; +
+                &quot;\&quot;id\&quot;: \&quot;4f9bcbba462042ebbf72a6698faf7582\&quot;,&quot; +
+                &quot;\&quot;insertTime\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;insertUser\&quot;: \&quot;zhangsan\&quot;,&quot; +
+                &quot;\&quot;jsons\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;loanId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;loanNo\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;name\&quot;: \&quot;zhaoliu\&quot;,&quot; +
+                &quot;\&quot;phoneNo\&quot;: \&quot;111\&quot;,&quot; +
+                &quot;\&quot;type\&quot;: \&quot;3\&quot;&quot; +
+                &quot;}],&quot; +
+                &quot;\&quot;code\&quot;: \&quot;200\&quot;&quot; +
+                &quot;}&quot;;
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+vars.put(&quot;strJson&quot;,str);
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="持久化GPS数据（medMemoryGPS）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;medMemoryGPS&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="持久化GPS数据" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+                &quot;\&quot;message\&quot;: \&quot;一定成功啊！！\&quot;,&quot; +
+                &quot;\&quot;itemID\&quot;: \&quot;d74f8d29-0bb3-498b-a342-1bc0d4f7a6b9\&quot;,&quot; +
+                &quot;\&quot;data\&quot;: {&quot; +
+                &quot;\&quot;address\&quot;: \&quot;上海\&quot;,&quot; +
+                &quot;\&quot;id\&quot;: \&quot;8c0381573c0b41c8b9148e2613725194\&quot;,&quot; +
+                &quot;\&quot;insertTime\&quot;: null,&quot; +
+                &quot;\&quot;insertUser\&quot;: \&quot;zhangsan\&quot;,&quot; +
+                &quot;\&quot;latitude\&quot;: \&quot;120\&quot;,&quot; +
+                &quot;\&quot;loanId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;loanNo\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;longitude\&quot;: \&quot;562\&quot;&quot; +
+                &quot;},&quot; +
+                &quot;\&quot;code\&quot;: \&quot;200\&quot;&quot; +
+                &quot;}&quot;;
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+vars.put(&quot;strJson&quot;,str);
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="持久化手机通讯录数据（medMemoryPhoneBook）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">vars.put(&quot;IFname&quot;, &quot;medMemoryPhoneBook&quot;);</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="持久化手机通讯录数据" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+                &quot;\&quot;message\&quot;: \&quot;一定成功啊！！\&quot;,&quot; +
+                &quot;\&quot;itemID\&quot;: \&quot;d74f8d29-0bb3-498b-a342-1bc0d4f7a6b9\&quot;,&quot; +
+                &quot;\&quot;data\&quot;: [{&quot; +
+                &quot;\&quot;address\&quot;: \&quot;四川\&quot;,&quot; +
+                &quot;\&quot;id\&quot;: \&quot;d41aa305373f42828a76e2b6cd1662eb\&quot;,&quot; +
+                &quot;\&quot;insertTime\&quot;: null,&quot; +
+                &quot;\&quot;insertUser\&quot;: \&quot;xianlei\&quot;,&quot; +
+                &quot;\&quot;jsons\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;loanId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;loanNo\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;name\&quot;: \&quot;zhangsan\&quot;,&quot; +
+                &quot;\&quot;phoneNo\&quot;: \&quot;110\&quot;,&quot; +
+                &quot;\&quot;type\&quot;: \&quot;2\&quot;&quot; +
+                &quot;},&quot; +
+                &quot;{&quot; +
+                &quot;\&quot;address\&quot;: \&quot;山西\&quot;,&quot; +
+                &quot;\&quot;id\&quot;: \&quot;3019f63d08064b9da380bc4c18cb1ec7\&quot;,&quot; +
+                &quot;\&quot;insertTime\&quot;: null,&quot; +
+                &quot;\&quot;insertUser\&quot;: \&quot;东南\&quot;,&quot; +
+                &quot;\&quot;jsons\&quot;: \&quot;\&quot;,&quot; +
+                &quot;\&quot;loanId\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;loanNo\&quot;: \&quot;&quot;+vars.get(&quot;objId_1&quot;)+&quot;\&quot;,&quot; +
+                &quot;\&quot;name\&quot;: \&quot;lisi\&quot;,&quot; +
+                &quot;\&quot;phoneNo\&quot;: \&quot;112\&quot;,&quot; +
+                &quot;\&quot;type\&quot;: \&quot;2\&quot;&quot; +
+                &quot;}],&quot; +
+                &quot;\&quot;code\&quot;: \&quot;200\&quot;&quot; +
+                &quot;}&quot;;
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+vars.put(&quot;strJson&quot;,str);
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="web端进件接口（medCaseApplication）" enabled="false"/>
+        <hashTree>
+          <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="设置接口地址" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">import java.io.*;
+vars.put(&quot;IFname&quot;, &quot;medCaseApplication&quot;);
+
+try {
+	Runtime.getRuntime().exec(vars.get(&quot;fileAdress&quot;));
+} catch (IOException e) {
+	System.out.println(e);
+}</stringProp>
+          </BeanShellPreProcessor>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="进件接口" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xd;
+&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#xd;
+  &lt;soap:Body&gt;&#xd;
+    &lt;${IFname} xmlns=&quot;http://webMain.webService.api.zhph.com/&quot;&gt;&#xd;
+      &lt;jsonStr xmlns=&quot;&quot;&gt;${strJson}&lt;/jsonStr&gt;&#xd;
+    &lt;/${IFname}&gt;&#xd;
+  &lt;/soap:Body&gt;&#xd;
+&lt;/soap:Envelope&gt;</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">${IFname}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="组装参数" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.APPEncode;
+import net.sf.json.JSONObject;
+
+//请求数据加密
+System.out.println(&quot;=====================================================&quot;);
+String data =&quot;{&quot; +
+				    &quot;\&quot;itemID\&quot;:\&quot;cd30a4b0-2788-493a-8b63-e287958df8c6\&quot;,&quot; +
+				    &quot;\&quot;data\&quot;:{&quot; +
+				          &quot;\&quot;custBaseInfo\&quot;:{&quot; +
+				            &quot;\&quot;birthday\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;certIssuOrg\&quot;:\&quot;成都市双流县公安局\&quot;,&quot; +
+				            &quot;\&quot;certNo\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;certType\&quot;:\&quot;001\&quot;,&quot; +
+				            &quot;\&quot;certValidDate\&quot;:\&quot;2050-05-15\&quot;,&quot; +
+				            &quot;\&quot;custName\&quot;:\&quot;杜友水\&quot;,&quot; +
+				            &quot;\&quot;custType\&quot;:\&quot;001\&quot;,&quot; +
+				            &quot;\&quot;docType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;email\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;homePhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isDel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isRealName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isRegLive\&quot;:\&quot;1\&quot;,&quot; +
+				            &quot;\&quot;liveAddr\&quot;:\&quot;成都市双流县盛世街345号\&quot;,&quot; +
+				            &quot;\&quot;liveArea\&quot;:\&quot;510122\&quot;,&quot; +
+				            &quot;\&quot;liveBuildType\&quot;:\&quot;5\&quot;,&quot; +
+				            &quot;\&quot;liveCity\&quot;:\&quot;510100\&quot;,&quot; +
+				            &quot;\&quot;liveProv\&quot;:\&quot;510000\&quot;,&quot; +
+				            &quot;\&quot;liveTimeSpan\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;mobilePhone\&quot;:\&quot;15868423654\&quot;,&quot; +
+				            &quot;\&quot;mobileTimeSpan\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mthAmtHouse\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mthTelBill\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;nation\&quot;:\&quot;1\&quot;,&quot; +
+				            &quot;\&quot;ownerHomePhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;qq\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;regAddr\&quot;:\&quot;成都市双流县盛世街345号\&quot;,&quot; +
+				            &quot;\&quot;regArea\&quot;:\&quot;510122\&quot;,&quot; +
+				            &quot;\&quot;regCity\&quot;:\&quot;510100\&quot;,&quot; +
+				            &quot;\&quot;regProv\&quot;:\&quot;510000\&quot;,&quot; +
+				            &quot;\&quot;regType\&quot;:\&quot;001\&quot;,&quot; +
+				            &quot;\&quot;remark\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;sex\&quot;:\&quot;0\&quot;,&quot; +
+				            &quot;\&quot;wx\&quot;:\&quot;\&quot;&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;custFamilyInfo\&quot;:{&quot; +
+				            &quot;\&quot;famAdd\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;famName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;famPhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;famRel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isDel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isFamKnow\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isRegAdd\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;marStatus\&quot;:\&quot;001\&quot;,&quot; +
+				            &quot;\&quot;mateName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;matePhone\&quot;:\&quot;\&quot;&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;custWorkInfo\&quot;:{&quot; +
+				            &quot;\&quot;educ\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;industry\&quot;:\&quot;1100000\&quot;,&quot; +
+				            &quot;\&quot;isDel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;linkMan\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;linkManJob\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;linkMobile\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;schoolId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;schoolProvince\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;schoolcity\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;unitAddr\&quot;:\&quot;成都市武侯区和善街54号\&quot;,&quot; +
+				            &quot;\&quot;unitArea\&quot;:\&quot;510107\&quot;,&quot; +
+				            &quot;\&quot;unitCity\&quot;:\&quot;510100\&quot;,&quot; +
+				            &quot;\&quot;unitPhone\&quot;:\&quot;028-59632168\&quot;,&quot; +
+				            &quot;\&quot;unitProv\&quot;:\&quot;510000\&quot;,&quot; +
+				            &quot;\&quot;unitScale\&quot;:\&quot;50\&quot;,&quot; +                     //单位大小
+				            &quot;\&quot;unitType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;workDept\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;workJob\&quot;:\&quot;普通员工\&quot;,&quot; +
+				            &quot;\&quot;workTimeSpan\&quot;:\&quot;6\&quot;,&quot; +
+				            &quot;\&quot;workUnit\&quot;:\&quot;红狐皮质有限公司\&quot;&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;custOtherInfo\&quot;:{&quot; +
+				            &quot;\&quot;appliedAmt\&quot;:6000,&quot; +
+				            &quot;\&quot;applyNum\&quot;:6,&quot; +                           //申请期数
+				            &quot;\&quot;averageIncome\&quot;:5000,&quot; +
+				            &quot;\&quot;custRiskLev\&quot;:\&quot;1\&quot;,&quot; +                    //风险等级
+				            &quot;\&quot;cuttentLiabi\&quot;:2999,&quot; +                    //当前负债
+				            &quot;\&quot;education\&quot;:\&quot;6\&quot;,&quot; +
+				            &quot;\&quot;famIncome\&quot;:0,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;income\&quot;:\&quot;8888.00\&quot;,&quot; +
+				            &quot;\&quot;isDel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isLoaned\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;mthRepay\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;patientsRelat\&quot;:\&quot;父子\&quot;,&quot; +
+				            &quot;\&quot;preTel\&quot;:\&quot;18754364598\&quot;,&quot; +
+				            &quot;\&quot;sesamePoints\&quot;:\&quot;100\&quot;&quot; +                  //芝麻分
+				        &quot;},&quot; +
+				        &quot;\&quot;loanGoodsInfo\&quot;:{&quot; +
+				            &quot;\&quot;brand\&quot;:\&quot;iphone\&quot;,&quot; +
+				            &quot;\&quot;diffRate\&quot;:0,&quot; +
+				            &quot;\&quot;externalPrice\&quot;:0,&quot; +
+				            &quot;\&quot;goodsType\&quot;:\&quot;001\&quot;,&quot; +
+				            &quot;\&quot;goodsTypeId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;identifyId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;marques\&quot;:\&quot;iphone7s\&quot;,&quot; +
+				            &quot;\&quot;price\&quot;:5000&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;loanBaseInfo\&quot;:{&quot; +
+				            &quot;\&quot;acctManageAmt\&quot;:0,&quot; +
+				            &quot;\&quot;acctManageRate\&quot;:0,&quot; +
+				            &quot;\&quot;amAmt\&quot;:0,&quot; +
+				            &quot;\&quot;amRate\&quot;:0,&quot; +
+				            &quot;\&quot;aprovDecision\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;aprovRemark\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;aprovResult\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;aprovTime\&quot;:null,&quot; +
+				            &quot;\&quot;aprovUserId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;aprovUserName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;aprovUserNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;attachAmt\&quot;:0,&quot; +                             //特权包费用
+				            &quot;\&quot;backAmt\&quot;:0,&quot; +
+				            &quot;\&quot;backRate\&quot;:0,&quot; +
+				            &quot;\&quot;birthday\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;blackBox\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;brand\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;certIssuOrg\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;certNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;certType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;certValidDate\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;chanNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;chargeChannel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;contractAmt\&quot;:0,&quot; +
+				            &quot;\&quot;creatTime\&quot;:null,&quot; +
+				            &quot;\&quot;creatUserId\&quot;:\&quot;w151005\&quot;,&quot; +                        //提交人员工主键表ID
+				            &quot;\&quot;creatUserName\&quot;:\&quot;钟远梅\&quot;,&quot; +                       //创建人姓名
+				            &quot;\&quot;creditAmt\&quot;:0,&quot; +
+				            &quot;\&quot;custAcctName\&quot;:\&quot;杜友水\&quot;,&quot; +                        //客户户名
+				            &quot;\&quot;custAcctNo\&quot;:\&quot;6228480588345121510\&quot;,&quot; +            //客户账户
+				            &quot;\&quot;custBankValue\&quot;:\&quot;COMM\&quot;,&quot; +                        //客户账户总行
+				            &quot;\&quot;custId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;custName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;custType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;dataSource\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;docType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;downPay\&quot;:0,&quot; +
+				            &quot;\&quot;email\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;faceScore\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;fee\&quot;:0,&quot; +
+				            &quot;\&quot;fileType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;firDownPay\&quot;:0,&quot; +
+				            &quot;\&quot;firRepayDate\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;goodType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;goodsType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;handingAmt\&quot;:0,&quot; +
+				            &quot;\&quot;handingRate\&quot;:0,&quot; +
+				            &quot;\&quot;homePhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;insFeeAmt\&quot;:0,&quot; +
+				            &quot;\&quot;insFeeRate\&quot;:0,&quot; +
+				            &quot;\&quot;installNum\&quot;:0,&quot; +
+				            &quot;\&quot;investor\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isAttach\&quot;:\&quot;1\&quot;,&quot; +
+				            &quot;\&quot;isDel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isInsuuance\&quot;:\&quot;1\&quot;,&quot; +                           //是否保险
+				            &quot;\&quot;isPercent\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isRealName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isRegLive\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isSend\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;liveAddr\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;liveArea\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;liveBuildType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;liveCity\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;liveProv\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;liveTimeSpan\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanAmt\&quot;:0,&quot; +
+				            &quot;\&quot;loanDiscern\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanNo\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanStatus\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;marStatus\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;marques\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;merName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;merNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mobilePhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mobileTimeSpan\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mthAmtHouse\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mthRepayAmt\&quot;:0,&quot; +
+				            &quot;\&quot;mthRepayDate\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;mthTelBill\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;nation\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;oldLoanAmt\&quot;:0,&quot; +
+				            &quot;\&quot;operatorReportId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;orgId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;orgName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;ownerHomePhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;ppRate\&quot;:0,&quot; +
+				            &quot;\&quot;price\&quot;:0,&quot; +
+				            &quot;\&quot;prodName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;prodType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;qq\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;rateYear\&quot;:0,&quot; +
+				            &quot;\&quot;regAddr\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;regArea\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;regCity\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;regProv\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;regTime\&quot;:null,&quot; +
+				            &quot;\&quot;regType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;rejectCodeOne\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;rejectCodeTwo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;remark\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;repayAcctName\&quot;:\&quot;广东鸿特普惠信息服务有限公司\&quot;,&quot; +        //还款户名
+				            &quot;\&quot;repayAcctNo\&quot;:\&quot;128907877310202\&quot;,&quot; +                   //指定还款账号
+				            &quot;\&quot;repayOpenBank\&quot;:\&quot;招商银行金牛万达支行\&quot;,&quot; +               //还款账户开户行
+				            &quot;\&quot;returnDescRate\&quot;:0,&quot; +
+				            &quot;\&quot;returnRate\&quot;:0,&quot; +
+				            &quot;\&quot;sex\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;storeAddr\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;storeArea\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;storeCity\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;storeName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;storeNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;storeProv\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;tdId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;tdLoginId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;tongdunScore\&quot;:0,&quot; +
+				            &quot;\&quot;totalPrice\&quot;:0,&quot; +
+				            &quot;\&quot;unitCity\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;unitPhone\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;withholdAmt\&quot;:0,&quot; +
+				            &quot;\&quot;wx\&quot;:\&quot;\&quot;&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;salerInfo\&quot;:{&quot; +
+				            &quot;\&quot;actyCode\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;chalCode\&quot;:\&quot;1\&quot;,&quot; +                            //渠道
+				            &quot;\&quot;ctacTel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;fileType\&quot;:\&quot;001\&quot;,&quot; +                          //档案代码
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isFirstPay\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;marAddr\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;marId\&quot;:\&quot;640501004\&quot;,&quot; +                       //商户表主键
+				            &quot;\&quot;marName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;marNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;overSoltId\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;proName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;proNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;proTel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;prodCode\&quot;:\&quot;15280977334272816\&quot;,&quot; +                          //产品id
+				            &quot;\&quot;prodName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;prodType\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;salerId\&quot;:\&quot;c056008\&quot;,&quot; +                         //销售id
+				            &quot;\&quot;salerName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;salerNo\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;salerTel\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;strAddr\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;strCtac\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;strId\&quot;:\&quot;640501004001\&quot;,&quot; +                     //门店表主键
+				            &quot;\&quot;strName\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;strNo\&quot;:\&quot;\&quot;&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;custOtherContacts\&quot;:[&quot; +
+				            &quot;{&quot; +
+				                &quot;\&quot;contactName\&quot;:\&quot;苏牧\&quot;,&quot; +                     //联系人
+				                &quot;\&quot;contactPhone\&quot;:\&quot;13764945584\&quot;,&quot; +
+				                &quot;\&quot;contactRel\&quot;:\&quot;002\&quot;,&quot; +                      //关系
+				                &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				                &quot;\&quot;isConKnow\&quot;:\&quot;1\&quot;,&quot; +
+				                &quot;\&quot;isDel\&quot;:\&quot;1\&quot;,&quot; +
+				                &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;&quot; +
+				            &quot;},&quot; +
+				            &quot;{&quot; +
+				                &quot;\&quot;contactName\&quot;:\&quot;刘集\&quot;,&quot; +
+				                &quot;\&quot;contactPhone\&quot;:\&quot;15864836942\&quot;,&quot; +
+				                &quot;\&quot;contactRel\&quot;:\&quot;001\&quot;,&quot; +
+				                &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				                &quot;\&quot;isConKnow\&quot;:\&quot;1\&quot;,&quot; +
+				                &quot;\&quot;isDel\&quot;:\&quot;1\&quot;,&quot; +
+				                &quot;\&quot;loanId\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;&quot; +
+				            &quot;}&quot; +
+				        &quot;],&quot; +
+				        &quot;\&quot;custOtherNetworkLoan\&quot;:{&quot; +
+				            &quot;\&quot;cardAmt\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;debtAmt\&quot;:\&quot;0\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;isLoaned\&quot;:\&quot;014003\&quot;,&quot; +
+				            &quot;\&quot;loanAmt\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanNo\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanPurpose\&quot;:\&quot;020002\&quot;,&quot; +
+				            &quot;\&quot;mthIncome\&quot;:\&quot;8888\&quot;,&quot; +
+				            &quot;\&quot;mthRepay\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;otherAmt\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;outstanAmount\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;overdueAmt\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;purchaseAmt\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;sixOverdue\&quot;:\&quot;500001\&quot;,&quot; +
+				            &quot;\&quot;stayAmt\&quot;:\&quot;\&quot;&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;medPatientInfo\&quot;:{&quot; +
+				            &quot;\&quot;address\&quot;:\&quot;成都省体馆\&quot;,&quot; +
+				            &quot;\&quot;id\&quot;:\&quot;\&quot;,&quot; +
+				            &quot;\&quot;loanNo\&quot;:\&quot;&quot;+vars.get(&quot;loanId&quot;)+&quot;\&quot;,&quot; +
+				            &quot;\&quot;medicalRating\&quot;:\&quot;1\&quot;,&quot; +
+				            &quot;\&quot;patientAdmissionNo\&quot;:\&quot;10086\&quot;,&quot; +
+				            &quot;\&quot;patientCard\&quot;:\&quot;513922199303074444\&quot;,&quot; +               //患者身份证
+				            &quot;\&quot;patientHospitTime\&quot;:\&quot;2015/3/2\&quot;,&quot; +
+				            &quot;\&quot;patientName\&quot;:\&quot;张三\&quot;,&quot; +
+				            &quot;\&quot;patientNation\&quot;:\&quot;1\&quot;,&quot; +
+				            &quot;\&quot;patientPerAddress\&quot;:\&quot;北京驻马店\&quot;,&quot; +
+				            &quot;\&quot;patientPhone\&quot;:\&quot;13036698965\&quot;,&quot; +
+				            &quot;\&quot;patientSex\&quot;:\&quot;0\&quot;,&quot; +
+				            &quot;\&quot;patientWorkAddr\&quot;:\&quot;北京天上人间\&quot;,&quot; +
+				            &quot;\&quot;patientWorkName\&quot;:\&quot;科技创造\&quot;,&quot; +
+				            &quot;\&quot;redCrossNo\&quot;:\&quot;1\&quot;,&quot; +
+				            &quot;\&quot;treatExpenseAmt\&quot;:1000000&quot; +
+				        &quot;},&quot; +
+				        &quot;\&quot;TDUserId\&quot;:\&quot;10010\&quot;,&quot; +
+				        &quot;\&quot;threeResult\&quot;:{&quot; +
+				            &quot;\&quot;IdentityScore\&quot;:\&quot;80\&quot;,&quot; +
+				            &quot;\&quot;faceScore\&quot;:\&quot;120\&quot;&quot; +
+				        &quot;}&quot; +
+				    &quot;}&quot; +
+				&quot;}&quot;;
+
+System.out.println(data);
+String str = APPEncode.getEncode(data);
+vars.put(&quot;strJson&quot;,str);
+
+
+</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
+              <stringProp name="BeanShellAssertion.query">import com.APPEncode;
+import net.sf.json.JSONObject;
+import java.io.*;
+
+String res = prev.getResponseDataAsString();
+//请求数据解密
+try{
+JSONObject jstr = APPEncode.getDecode(res);
+System.out.println(&quot;-------解密后的返回值--------&quot;);
+System.out.println(jstr);
+
+String code = jstr.get(&quot;code&quot;);
+String checkCode = &quot;0000&quot;;// 断言code值
+if(code.equals(checkCode)){
+	Failure = false;
+	FailureMessage = &quot;成功&quot;;	
+}else{
+	Failure = true;
+	FailureMessage  = &quot;返回code值错误；返回code值为：&quot;+code+&quot;; 应为：&quot;+checkCode;	
+}
+}catch(Exception e){
+	System.out.println(e);
+	Failure = true;
+	FailureMessage  = &quot;返回值解密错误&quot;;	
+}
+System.out.println(&quot;=====================================================&quot;);</stringProp>
+              <stringProp name="BeanShellAssertion.filename"></stringProp>
+              <stringProp name="BeanShellAssertion.parameters"></stringProp>
+              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+            </BeanShellAssertion>
+            <hashTree/>
+          </hashTree>
+          <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+            <boolProp name="displayJMeterProperties">false</boolProp>
+            <boolProp name="displayJMeterVariables">true</boolProp>
+            <boolProp name="displaySystemProperties">false</boolProp>
+          </DebugSampler>
+          <hashTree/>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>true</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>true</responseData>
+              <samplerData>true</samplerData>
+              <xml>true</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>true</responseHeaders>
+              <requestHeaders>true</requestHeaders>
+              <responseDataOnError>true</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <fileName>true</fileName>
+              <hostname>true</hostname>
+              <threadCounts>true</threadCounts>
+              <sampleCount>true</sampleCount>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="工作台" enabled="true">
+      <boolProp name="WorkBench.save">true</boolProp>
+    </WorkBench>
+    <hashTree/>
+  </hashTree>
+</jmeterTestPlan>

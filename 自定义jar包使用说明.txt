@@ -1,0 +1,5 @@
+apache-jmeter-3.2\bin\jmeter.properties
+用txt打开，找到#user.classpath=../classes;../lib这一行
+下面添加
+user.classpath=../myjar
+注释：myjar是自己定义的装自定义jar包的文件夹，可以自己命名
